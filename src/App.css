@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+.data-correct{
+  background-color: #a6cea6!important;
+}
+.data-skip{
+  background-color:#999999!important
+}
+.ag-theme-alpine .ag-ltr .ag-cell{
+  border-right-width: 1px;
+  border-color: transparent;
+}
+.logo-title{
+  padding: 15px;
+}
+.ag-theme-alpine .ag-row:not(.ag-row-first) {
+  border-top-style: solid;
+}

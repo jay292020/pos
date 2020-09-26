@@ -1,0 +1,86 @@
+// Import mixins
+@import 'common/assets/styles/mixins.scss';
+
+.ant-switch-checked {
+  background-color: $apg-green;
+}
+
+.ant-input {
+  color: #000;
+  border: 1px solid #92959a;
+}
+
+.ant-select-selection,
+.ant-switch,
+.ant-input-number {
+  border: 1px solid #92959a;
+}
+
+.ant-btn-normal {
+  background-color: #a9a9a9;
+  border-color: #a9a9a9;
+  font-weight: bold;
+  color: black;
+}
+
+.ant-btn-normal:hover {
+  background-color: #bebebe;
+  border-color: #a9a9a9;
+  color: black;
+}
+
+.ant-btn-primary {
+  background-color: $apg-green;
+  border-color: $apg-green;
+  font-weight: bold;
+  color: white;
+}
+
+.ant-btn-primary:hover {
+  background-color: $apg-green;
+}
+
+.ant-btn-primary:focus {
+  background-color: $apg-green-darken;
+}
+
+.ant-modal-confirm-btns .ant-btn:first-child {
+  margin-right: 35px;
+}
+
+.ag-cell-value a {
+  color: black;
+}
+
+.inactive-row-item {
+  color: #a5a5a5;
+}
+
+.inactive-row-item a {
+  color: #a5a5a5;
+}
+
+.ant-menu-vertical.ant-menu-sub {
+  width: calc(100% + 25px);
+}
+
+.ant-input-number-handler-wrap {
+  display: none;
+}
+
+.ant-select-selection__clear {
+  color: #000;
+}
+
+body .ant-select-dropdown {
+  border: 1px solid rgb(146, 149, 154);
+}
+
+.ant-modal-footer .ant-btn-normal {
+  float: left;
+}
+
+body .ant-layout-footer {
+  padding-top: 30px;
+  padding-bottom: 15px;
+}

@@ -45,6 +45,15 @@
 .ag-theme-alpine .ag-ltr .ag-cell{
   border-right-width: 1px;
   border-color: transparent;
+  
+  .ag-has-focus{
+    border: unset!important;
+    border-color: unset!important;
+    outline: none!important;
+  }
+}
+.ag-theme-alpine .ag-ltr .ag-cell-focus{
+  border: none!important;
 }
 .logo-title{
   padding: 15px;

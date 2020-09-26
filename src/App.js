@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import './App.css'
+import './App.scss'
 import {getPointOfSaleErrors,putPointOfSaleErrors} from './service/pos'
 import {
   AlertPop,
@@ -306,6 +306,7 @@ class App extends Component {
               onGridReady={this.onGridReady}
               onCellValueChanged={this.onCellValueChanged.bind(this)}
               frameworkComponents={this.state.frameworkComponents}
+              overlayNoRowsTemplate={"There is no pending labor ready to post at this time."}
             />
           </div>
         </div>

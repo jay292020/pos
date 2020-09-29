@@ -5,7 +5,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import './App.scss'
 import {getPointOfSaleErrors,putPointOfSaleErrors} from './service/pos'
 import {
-  AlertPop,
+  ErrorAlertPopup,
   UiButton,
   ErrorMessage
 } from './common/framework'
@@ -21,7 +21,7 @@ import {
   upperCase
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
-let currentDate = moment().format('DD-MMM-YY HH:MM:SS');
+let currentDate = moment().format('DD-MMM-YY H:mm:ss');
 class App extends Component {
   constructor(props) {
     super(props);
@@ -262,7 +262,7 @@ class App extends Component {
     let errFooter = "Error Message(s)"
     let closeName = "Close error message"
     console.log(errorData)
-     AlertPop(errHeader,errFooter,errorData.ERROR_DATE,errorData.ERROR_MESSAGE,errorData.ERROR_DATE,closeName)
+    ErrorAlertPopup(errHeader,errFooter,errorData.ERROR_DATE,errorData.ERROR_MESSAGE,errorData.ERROR_DATE,closeName)
   }
   onGridReady = (params) => {
     this.gridApi = params.api;

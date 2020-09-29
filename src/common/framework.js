@@ -1,8 +1,8 @@
-import AlertPop from './component/AlertPop'
+import ErrorAlertPopup from './component/errorAlertPopup'
 import UiButton from './component/UiButton/ui-button'
 import ErrorMessage from './component/ErrorMessage/errorMessage'
 export {
-    AlertPop,
+    ErrorAlertPopup,
     UiButton,
     ErrorMessage
 }

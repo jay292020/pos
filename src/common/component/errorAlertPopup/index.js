@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal } from 'antd';
 import './alertpop.scss'
-const AlertPop = (errHeader,errFooter,errDate,errMsg,closeName) => {
+const ErrorAlertPopup = (errHeader,errFooter,errDate,errMsg,closeName) => {
     const info = () =>{
         Modal.info({
             content: (
@@ -23,4 +23,4 @@ const AlertPop = (errHeader,errFooter,errDate,errMsg,closeName) => {
         </div>
     )
 }
-export default AlertPop
+export default ErrorAlertPopup

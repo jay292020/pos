@@ -1,3 +1,5 @@
+@import 'common/assets/styles/apg/theme';
+
 .App {
   text-align: center;
 }
@@ -37,10 +39,10 @@
   }
 }
 .data-correct{
-  background-color: #a6cea6!important;
+  background-color: $apg-row-correct!important;
 }
 .data-skip{
-  background-color:#999999!important
+  background-color:$apg-row-disregard!important
 }
 .ag-theme-alpine .ag-ltr .ag-cell{
   border-right-width: 1px;

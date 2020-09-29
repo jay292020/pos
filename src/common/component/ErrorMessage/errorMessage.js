@@ -1,8 +1,8 @@
 import React,{useContext} from 'react'
 import { Modal } from 'antd';
-
+import CONSTANTS from './../../assets/constant'
 const ErrorMessage = (errorLocation, errorMsg, sourceName,title) =>{
-    let errorTitle = title ? title : 'Error Message'
+    let errorTitle = title ? title : CONSTANTS.ALERTTITLE
     const info = (errorLocation, errorMsg, sourceName) =>{
         Modal.info({
             content: (

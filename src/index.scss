@@ -261,12 +261,12 @@ textarea.ant-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     border: none!important;
   }
   .ant-btn-primary{
-    background-color:green;
-    border-color:green
+    background-color: $apg-green;
+    border-color: $apg-green
   }
   .ant-btn-primary:hover, .ant-btn-primary:focus{
-    background-color:green;
-    border-color:green
+    background-color: $apg-green;
+    border-color: $apg-green
   }
 }
 /* Chrome, Safari, Edge, Opera */

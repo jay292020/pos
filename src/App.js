@@ -21,6 +21,7 @@ import {
   upperCase
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
+let currentDate = moment().format('DD-MMM-YY HH:MM:SS');
 class App extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +56,7 @@ class App extends Component {
         {
           headerName: 'NAICS',
           field: 'NAICS_CODE',
-          width: 150,
+          width: 100,
           cellEditor: 'numericEditor',
         },
         
@@ -65,7 +66,7 @@ class App extends Component {
             { headerName: 'City', field: 'SOLD_TO_CITY',width: 100,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'numericEditor', },
-            { headerName: 'Country', field: 'SOLD_TO_COUNTY',width: 100,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SOLD_TO_COUNTY',width: 120,  valueFormatter: upperCase }
           ]
         },
         {
@@ -74,7 +75,7 @@ class App extends Component {
             { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100,cellStyle:zipValidate,cellEditor: 'numericEditor', },
-            { headerName: 'Country', field: 'SHIP_TO_COUNTY',width: 100,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SHIP_TO_COUNTY',width: 120,  valueFormatter: upperCase }
         ]
         },
         {
@@ -99,21 +100,21 @@ class App extends Component {
         {
           headerName: 'Qty',
           field: 'QUANTITY',
-          width: 150,
+          width: 80,
           cellStyle:isRequiredQty,
           cellEditor: 'numericEditor'
         },
         {
           headerName: 'Unit Cost',
           field: 'UNIT_COST',
-          width: 150,
+          width: 120,
           cellStyle:isRequiredCostStyle,
           cellEditor: 'numericEditor'
         },
         {
           headerName: 'Curr',
           field: 'UNIT_COST_CURRENCY',
-          width: 150,
+          width: 90,
           cellEditor: 'numericEditor'
         },
         {
@@ -126,28 +127,30 @@ class App extends Component {
         {
           headerName: 'Curr',
           field: 'UNIT_PRICE_CURRENCY',
-          width: 150,
+          width: 90,
           cellEditor: 'numericEditor'
         },
         {
           headerName: null,
           sortable: false,
           filter: false,
+          width: 100,
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => (
-            <UiButton bg="transparent" color="#2496f3" onClickHandler={()=>this.viewError(row)}>View error</UiButton>
+            <UiButton bg="transparent" color="#08f" onClickHandler={()=>this.viewError(row)}>View error</UiButton>
           ),  
         },
         {
           headerName: null,
           sortable: false,
           filter: false,
+          width: 120,
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => {
             console.log(row.data)
             let enabled = enabledLogic(row.data)
             return(
-              <UiButton disabled={!enabled}  bg="#36682f" color="#ffffff" onClickHandler={() => this.sendCorrection(row)}>Send correction</UiButton>
+              <UiButton disabled={!enabled}  bg="#248027" color="#ffffff" onClickHandler={() => this.sendCorrection(row)}>Send correction</UiButton>
             )
           },
         },
@@ -155,6 +158,7 @@ class App extends Component {
           headerName: null,
           sortable: false,
           filter: false,
+          width: 120,
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => {
             let hideButtonStatus = row.data.STATUS === "D"
@@ -221,31 +225,34 @@ class App extends Component {
     };
   }
   sendCorrection = (params) => {
-    let currentDate = moment().format('DD-MMM-YY');
+    let apiKey =  window.location.href.split('=')[1] ? window.location.href.split('=')[1] : 0
     let validate = params.data
     validate['STATUS'] = "C"
-    validate['DATE_DISREGARDED'] = currentDate
+    validate['CORRECTED_BY_USER_KEY'] = parseInt(apiKey)
+    validate['DATE_CORRECTION_SENT'] = currentDate
     putPointOfSaleErrors(params.data.RECORD_NUMBER, validate).then(res => {
-      console.log(res)
-    }).catch(errorMessage => {
+     window.location.reload();
+    }).catch(error => {
+      let errorMessage = error.response.data
       ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
   };
   disregardError = (params) => {
-    let currentDate = moment().format('DD-MMM-YY');
-    console.log('currentDate ============>',currentDate)
+    let apiKey =  window.location.href.split('=')[1] ? window.location.href.split('=')[1] : 0
     const updateData = (data) => {
       this.setState({ rowData: data });
     };
     let validate = params.data.STATUS
     let sendData = {
       STATUS: "D",
-      DATE_DISREGARDED:currentDate
+      DATE_DISREGARDED:currentDate,
+      CORRECTED_BY_USER_KEY: parseInt(apiKey)
     }
     putPointOfSaleErrors(params.data.RECORD_NUMBER, sendData).then(res => {
-      console.log(res)
-      // window.location.reload();
+      window.location.reload();
     }).catch(error => {
+      let errorMessage = error.response.data
+      ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
     
   }
@@ -261,21 +268,14 @@ class App extends Component {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    const httpRequest = new XMLHttpRequest();
     const updateData = (data) => {
       this.setState({ rowData: data });
     };
-
-    httpRequest.open(
-      'GET',
-      'http://54.160.141.173:3010/api/vendor/pointOfSaleErrors'
-    );
-    httpRequest.send();
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-        updateData(JSON.parse(httpRequest.responseText));
-      }
-    };
+    getPointOfSaleErrors().then(res => {
+      updateData(res);
+    }).catch(errorMessage => {
+      console.log('===========>',errorMessage)
+    })
   };
   onCellValueChanged = (event) => {
     console.log('data after changes is: ', event.data);

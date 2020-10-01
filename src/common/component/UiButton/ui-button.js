@@ -9,7 +9,6 @@ const UiButton = (props) => {
         outline: 'none',
         border: 'none',
         borderRadius: '3px',
-        cursor:'pointer',
         opacity: disabled && '0.4' 
     }
     return (

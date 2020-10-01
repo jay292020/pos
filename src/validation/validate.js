@@ -25,7 +25,6 @@ export let isRequiredUnitPrice =  (params) => {
 }
 
 export let isRequiredItem =  (params) => {
-    console.log('arams.data.OUR_PART_NUMBER ',params.data.OUR_PART_NUMBER != null )
     let isRequiredString = params.data.OUR_PART_NUMBER !== undefined && params.data.OUR_PART_NUMBER !== null && params.data.OUR_PART_NUMBER.toString();
     let isRequiredValue = isRequiredString.length > 0
       if (isRequiredValue) {
@@ -46,9 +45,7 @@ export let isRequiredDescription =  (params) => {
       }
 }
 export let isRequiredQty =  (params) => {
-
     let isRequiredString = params.data.QUANTITY !== undefined && params.data.QUANTITY.toString()
-    console.log('params.data.QUANTITY',isRequiredString)
     let isRequiredValue = isRequiredString.length > 0
       if (isRequiredValue) {
           //mark police cells as red
@@ -75,10 +72,16 @@ export let upperCase = (params) => {
 
 // button enable feature 
 export let enabledLogic = (params) =>{
-    let itemNumber = params.OUR_PART_NUMBER !== undefined && params.OUR_PART_NUMBER !== null && params.OUR_PART_NUMBER.toString(); 
-    let description = params.PRODUCT_DESCRIPTION !== undefined && params.PRODUCT_DESCRIPTION.toString()
-    let qty = params.QUANTITY !== undefined && params.QUANTITY.toString()
-    let cost = params.UNIT_COST !== undefined && params.UNIT_COST.toString() 
-    let price = params.UNIT_PRICE !== undefined && params.UNIT_PRICE.toString()
+    let itemNumber = params.OUR_PART_NUMBER !== undefined && params.OUR_PART_NUMBER !== null ? params.OUR_PART_NUMBER.toString() : 0
+    let description = params.PRODUCT_DESCRIPTION !== undefined ? params.PRODUCT_DESCRIPTION.toString() : 0
+    let qty = params.QUANTITY !== undefined ? params.QUANTITY.toString() : 0
+    let cost = params.UNIT_COST !== undefined ? params.UNIT_COST.toString() : 0
+    let price = params.UNIT_PRICE !== undefined ? params.UNIT_PRICE.toString() : 0
     return isTrue(itemNumber) && isTrue(description) && isTrue(qty) && isTrue(cost) && isTrue(price)
+}
+
+export let buttonHide = (row) =>{
+  let params = row.data
+  let itemNumber = params.OUR_PART_NUMBER !== undefined && params.OUR_PART_NUMBER !== null ? params.OUR_PART_NUMBER.toString() : 0
+  return itemNumber.length > 0 ? 'button-disable' : ''
 }

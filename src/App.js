@@ -18,7 +18,8 @@ import {
   isRequiredItem,
   isRequiredDescription,
   isRequiredQty,
-  upperCase
+  upperCase,
+  buttonHide
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
 let currentDate = moment().format('DD-MMM-YY H:mm:ss');
@@ -33,18 +34,21 @@ class App extends Component {
           field: 'DOCUMENT_NUMBER',
           type: ['dateColumn', 'nonEditableColumn'],
           width: 100,
+          pinned: 'left',
         },
         {
           headerName: 'Seq',
           field: 'DOCUMENT_LINE_ITEM',
           type: ['dateColumn', 'nonEditableColumn'],
           width: 100,
+          pinned: 'left',
         },
         {
           headerName: 'Customer',
           field: 'CUSTOMER_IDENTIFIER',
           type: ['dateColumn', 'nonEditableColumn'],
           width: 150,
+          pinned: 'left',
         },
         {
           headerName: 'Name',
@@ -66,7 +70,7 @@ class App extends Component {
             { headerName: 'City', field: 'SOLD_TO_CITY',width: 100,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'numericEditor', },
-            { headerName: 'Country', field: 'SOLD_TO_COUNTY',width: 120,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
           ]
         },
         {
@@ -75,7 +79,7 @@ class App extends Component {
             { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100,cellStyle:zipValidate,cellEditor: 'numericEditor', },
-            { headerName: 'Country', field: 'SHIP_TO_COUNTY',width: 120,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
         ]
         },
         {
@@ -88,8 +92,8 @@ class App extends Component {
           headerName: 'Our Item',
           field: 'OUR_PART_NUMBER',
           width: 150,
-          cellEditor: 'numericEditor',
           cellStyle:isRequiredItem,
+          valueFormatter: upperCase
         },
         {
           headerName: 'Our Description',
@@ -135,6 +139,7 @@ class App extends Component {
           sortable: false,
           filter: false,
           width: 100,
+          pinned: 'right',
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => (
             <UiButton bg="transparent" color="#08f" onClickHandler={()=>this.viewError(row)}>View error</UiButton>
@@ -145,12 +150,14 @@ class App extends Component {
           sortable: false,
           filter: false,
           width: 120,
+          pinned: 'right',
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => {
-            console.log(row.data)
-            let enabled = enabledLogic(row.data)
+            let data = row.data
+            let enabled = enabledLogic(data)
+            console.log('enabled',enabled)
             return(
-              <UiButton disabled={!enabled}  bg="#248027" color="#ffffff" onClickHandler={() => this.sendCorrection(row)}>Send correction</UiButton>
+              <UiButton bg="#248027" color="#ffffff" onClickHandler={() => this.sendCorrection(row)}>Send correction</UiButton>
             )
           },
         },
@@ -159,11 +166,12 @@ class App extends Component {
           sortable: false,
           filter: false,
           width: 120,
+          pinned: 'right',
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => {
             let hideButtonStatus = row.data.STATUS === "D"
             return (
-              <UiButton bg='gray' hide={hideButtonStatus}  color="#000000" onClickHandler={()=> this.disregardError(row)}>
+              <UiButton bg='#80808080' hide={hideButtonStatus}  color="#000000" onClickHandler={()=> this.disregardError(row)}>
                 Disregard error
               </UiButton>
             )
@@ -186,8 +194,10 @@ class App extends Component {
       },
       defaultColDef: {
         width: 150,
-        filter: 'agTextColumnFilter',
+        sortable: true,
         editable:true,
+        filter: true, 
+        resizable: true,
       },
       defaultColGroupDef: { marryChildren: true },
       columnTypes: {
@@ -225,17 +235,30 @@ class App extends Component {
     };
   }
   sendCorrection = (params) => {
-    let apiKey =  window.location.href.split('=')[1] ? window.location.href.split('=')[1] : 0
-    let validate = params.data
-    validate['STATUS'] = "C"
-    validate['CORRECTED_BY_USER_KEY'] = parseInt(apiKey)
-    validate['DATE_CORRECTION_SENT'] = currentDate
-    putPointOfSaleErrors(params.data.RECORD_NUMBER, validate).then(res => {
-     window.location.reload();
-    }).catch(error => {
-      let errorMessage = error.response.data
-      ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
-    })
+    let data = params.data
+    let enabled = enabledLogic(data)
+    if(enabled){
+      let apiKey =  window.location.href.split('=')[1] ? window.location.href.split('=')[1] : 0
+      let validate = params.data
+      validate['STATUS'] = "C"
+      validate['CORRECTED_BY_USER_KEY'] = parseInt(apiKey)
+      validate['DATE_CORRECTION_SENT'] = currentDate
+      putPointOfSaleErrors(params.data.RECORD_NUMBER, validate).then(res => {
+       window.location.reload();
+      }).catch(error => {
+        let errorMessage = error.response.data
+        ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
+      })
+    }else{
+      let errorData = params.data
+      let errorDate = errorData.ERROR_DATE ? errorData.ERROR_DATE : currentDate
+      let errHeader = "Error Date"
+      let errFooter = "Error Message(s)"
+      let closeName = "Close error message"
+      let errMessge = "Please enter required fields "
+      ErrorAlertPopup(errHeader,errFooter,errorDate,errMessge,errorData.ERROR_DATE,closeName)
+    }
+    
   };
   disregardError = (params) => {
     let apiKey =  window.location.href.split('=')[1] ? window.location.href.split('=')[1] : 0

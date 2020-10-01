@@ -63,3 +63,27 @@
 .ag-theme-alpine .ag-row:not(.ag-row-first) {
   border-top-style: solid;
 }
+// .ag-theme-alpine .ag-pinned-left-header{
+//   border-right-color: #babfc7;
+// }
+// .ag-theme-alpine .ag-floating-top{
+//   border-bottom-color:red!important
+// }
+// .button-disable{
+//   button{
+//     opacity: 0.2;
+//     display: none
+//   }
+// }
+.ag-theme-alpine .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right):not(.ag-cell-range-single-cell){
+  border-right-color: transparent!important;
+}
+.ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell){
+  border-left-color: transparent!important;
+}
+.ag-theme-alpine .ag-pinned-left-header{
+  border-right-color: transparent!important;
+}
+.ag-theme-alpine .ag-pinned-right-header{
+  border-left-color: transparent!important;
+}

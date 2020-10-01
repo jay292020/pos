@@ -171,7 +171,7 @@ class App extends Component {
           cellRendererFramework: row => {
             let hideButtonStatus = row.data.STATUS === "D"
             return (
-              <UiButton bg='#80808080' hide={hideButtonStatus}  color="#000000" onClickHandler={()=> this.disregardError(row)}>
+              <UiButton bg='#a9a9a9' hide={hideButtonStatus}  color="#000000" onClickHandler={()=> this.disregardError(row)}>
                 Disregard error
               </UiButton>
             )

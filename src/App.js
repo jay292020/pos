@@ -32,21 +32,18 @@ class App extends Component {
         {
           headerName: 'Invoice',
           field: 'DOCUMENT_NUMBER',
-          type: ['dateColumn', 'nonEditableColumn'],
           width: 100,
           pinned: 'left',
         },
         {
           headerName: 'Seq',
           field: 'DOCUMENT_LINE_ITEM',
-          type: ['dateColumn', 'nonEditableColumn'],
           width: 100,
           pinned: 'left',
         },
         {
           headerName: 'Customer',
           field: 'CUSTOMER_IDENTIFIER',
-          type: ['dateColumn', 'nonEditableColumn'],
           width: 150,
           pinned: 'left',
         },

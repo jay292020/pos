@@ -55,7 +55,7 @@ export let isRequiredQty =  (params) => {
       }
 }
 export let zipValidate = (params) => {
-    let isLength = params.value.length > 10
+    let isLength = params.value !== null && params.value.length > 10
     if (isLength) {
         //mark police cells as red
         return {borderColor: 'red'};

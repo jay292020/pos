@@ -87,3 +87,17 @@
 .ag-theme-alpine .ag-pinned-right-header{
   border-left-color: transparent!important;
 }
+.ag-header-cell-text{
+  color: rgba(0, 0, 0, 0.85)!important;
+  font-weight: 500;
+}
+.ag-header-group-text{
+  color: rgba(0, 0, 0, 0.85)!important;
+  font-weight: 500;
+}
+.ag-header-cell-resize{
+  display: none!important
+}
+.ag-cell{
+  font-weight: 500!important;
+}

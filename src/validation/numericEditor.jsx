@@ -121,11 +121,13 @@ export default class NumericEditor extends Component {
   isCharNumeric(charStr) {
     return !!/\d/.test(charStr);
   }
-
+  isCharDecimal(charStr) {
+    return !!/\./.test(charStr);
+  }
   isKeyPressedNumeric(event) {
     const charCode = this.getCharCodeFromEvent(event);
     const charStr = event.key ? event.key : String.fromCharCode(charCode);
-    return this.isCharNumeric(charStr);
+    return this.isCharNumeric(charStr) ||  this.isCharDecimal(charStr);
   }
 
   render() {

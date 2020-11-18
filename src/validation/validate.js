@@ -34,6 +34,17 @@ export let isRequiredItem =  (params) => {
         return {borderColor: 'red'};
       }
 }
+
+export let isRequiredMfg =  (params) => {
+  let isRequiredString = params.data.DISTRIBUTOR_PART_NUMBER !== undefined && params.data.DISTRIBUTOR_PART_NUMBER !== null && params.data.DISTRIBUTOR_PART_NUMBER.toString();
+  let isRequiredValue = isRequiredString.length > 0
+    if (isRequiredValue) {
+        //mark police cells as red
+        return {borderColor: 'transparent'};
+    } else {
+      return {borderColor: 'red'};
+    }
+}
 export let isRequiredDescription =  (params) => {
     let isRequiredString = params.data.PRODUCT_DESCRIPTION !== undefined && params.data.PRODUCT_DESCRIPTION.toString()
     let isRequiredValue = isRequiredString.length > 0
@@ -73,11 +84,12 @@ export let upperCase = (params) => {
 // button enable feature 
 export let enabledLogic = (params) =>{
     let itemNumber = params.OUR_PART_NUMBER !== undefined && params.OUR_PART_NUMBER !== null ? params.OUR_PART_NUMBER.toString() : 0
+    let itemMfg = params.DISTRIBUTOR_PART_NUMBER !== undefined && params.DISTRIBUTOR_PART_NUMBER !== null ? params.DISTRIBUTOR_PART_NUMBER.toString() : 0
     let description = params.PRODUCT_DESCRIPTION !== undefined ? params.PRODUCT_DESCRIPTION.toString() : 0
     let qty = params.QUANTITY !== undefined ? params.QUANTITY.toString() : 0
     let cost = params.UNIT_COST !== undefined ? params.UNIT_COST.toString() : 0
     let price = params.UNIT_PRICE !== undefined ? params.UNIT_PRICE.toString() : 0
-    return isTrue(itemNumber) && isTrue(description) && isTrue(qty) && isTrue(cost) && isTrue(price)
+    return isTrue(itemNumber) && isTrue(description) && isTrue(qty) && isTrue(cost) && isTrue(price) && isTrue(itemMfg)
 }
 
 export let buttonHide = (row) =>{

@@ -19,6 +19,7 @@ import {
   isRequiredDescription,
   isRequiredQty,
   upperCase,
+  isRequiredMfg,
   buttonHide
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
@@ -83,6 +84,7 @@ class App extends Component {
           headerName: 'Mfg Item',
           field: 'DISTRIBUTOR_PART_NUMBER',
           width: 150,
+          cellStyle:isRequiredMfg,
           valueFormatter: upperCase
         },
         {
@@ -253,7 +255,7 @@ class App extends Component {
       let errFooter = "Error Message(s)"
       let closeName = "Close error message"
       let errMessge = "Please enter required fields "
-      ErrorAlertPopup(errHeader,errFooter,errorDate,errMessge,errorData.ERROR_DATE,closeName)
+      ErrorAlertPopup(errHeader,errFooter,errorDate,errMessge,closeName)
     }
     
   };
@@ -266,7 +268,7 @@ class App extends Component {
     let sendData = {
       STATUS: "D",
       DATE_DISREGARDED:currentDate,
-      CORRECTED_BY_USER_KEY: parseInt(apiKey)
+      DISREGARDED_BY_USER_KEY: parseInt(apiKey)
     }
     putPointOfSaleErrors(params.data.RECORD_NUMBER, sendData).then(res => {
       window.location.reload();
@@ -281,8 +283,7 @@ class App extends Component {
     let errHeader = "Error Date"
     let errFooter = "Error Message(s)"
     let closeName = "Close error message"
-    console.log(errorData)
-    ErrorAlertPopup(errHeader,errFooter,errorData.ERROR_DATE,errorData.ERROR_MESSAGE,errorData.ERROR_DATE,closeName)
+    ErrorAlertPopup(errHeader,errFooter,errorData.ERROR_DATE,errorData.ERROR_MESSAGE,closeName)
   }
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -310,7 +311,7 @@ class App extends Component {
           <div
             id="myGrid"
             style={{
-              height: '600px',
+              height: '520px',
               width: '100%',
             }}
             className="ag-theme-alpine"
@@ -326,7 +327,7 @@ class App extends Component {
               onGridReady={this.onGridReady}
               onCellValueChanged={this.onCellValueChanged.bind(this)}
               frameworkComponents={this.state.frameworkComponents}
-              overlayNoRowsTemplate={"There is no pending labor ready to post at this time."}
+              overlayNoRowsTemplate={"There are no POS records to correct at this time."}
             />
           </div>
         </div>

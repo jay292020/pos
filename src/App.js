@@ -20,6 +20,9 @@ import {
   isRequiredQty,
   upperCase,
   isRequiredMfg,
+  isRequiredName,
+  isRequiredShipCity,
+  isRequiredSoldCity,
   buttonHide
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
@@ -35,24 +38,28 @@ class App extends Component {
           field: 'DOCUMENT_NUMBER',
           width: 100,
           pinned: 'left',
+          type: [ 'nonEditableColumn'],
         },
         {
           headerName: 'Seq',
           field: 'DOCUMENT_LINE_ITEM',
           width: 100,
           pinned: 'left',
+          type: [ 'nonEditableColumn'],
         },
         {
           headerName: 'Customer',
           field: 'CUSTOMER_IDENTIFIER',
           width: 150,
           pinned: 'left',
+          type: ['nonEditableColumn'],
         },
         {
           headerName: 'Name',
           field: 'CUSTOMER_NAME',
           type: 'numberColumn',
           width: 200,
+          cellStyle:isRequiredName,
           valueFormatter: upperCase
         },
         {
@@ -65,7 +72,7 @@ class App extends Component {
         {
           headerName: 'Sold-to Address',
           children: [
-            { headerName: 'City', field: 'SOLD_TO_CITY',width: 100,  valueFormatter: upperCase },
+            { headerName: 'City', field: 'SOLD_TO_CITY',width: 100, cellStyle:isRequiredSoldCity, valueFormatter: upperCase },
             { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'numericEditor', },
             { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
@@ -74,7 +81,7 @@ class App extends Component {
         {
           headerName: 'Ship-to Address',
           children: [
-            { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,  valueFormatter: upperCase },
+            { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,cellStyle:isRequiredShipCity,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100,cellStyle:zipValidate,cellEditor: 'numericEditor', },
             { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
@@ -139,7 +146,7 @@ class App extends Component {
           filter: false,
           width: 100,
           pinned: 'right',
-          type: ['dateColumn', 'nonEditableColumn'],
+          type: ['nonEditableColumn'],
           cellRendererFramework: row => (
             <UiButton bg="transparent" color="#08f" onClickHandler={()=>this.viewError(row)}>View error</UiButton>
           ),  
@@ -150,7 +157,7 @@ class App extends Component {
           filter: false,
           width: 120,
           pinned: 'right',
-          type: ['dateColumn', 'nonEditableColumn'],
+          type: ['nonEditableColumn'],
           cellRendererFramework: row => {
             let data = row.data
             let enabled = enabledLogic(data)
@@ -246,6 +253,7 @@ class App extends Component {
        window.location.reload();
       }).catch(error => {
         let errorMessage = error.response.data
+       
         ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
       })
     }else{
@@ -283,7 +291,10 @@ class App extends Component {
     let errHeader = "Error Date"
     let errFooter = "Error Message(s)"
     let closeName = "Close error message"
-    ErrorAlertPopup(errHeader,errFooter,errorData.ERROR_DATE,errorData.ERROR_MESSAGE,closeName)
+    let errorMessage = errorData.ERROR_MESSAGE && errorData.ERROR_MESSAGE.replace(/[{}]/g, "")
+    let errMsgSplit = errorMessage.replace(/[""]/g, "")
+    console.log( console.log(errorMessage))
+    ErrorAlertPopup(errHeader,errFooter,errorData.ERROR_DATE,errMsgSplit,closeName)
   }
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -311,7 +322,7 @@ class App extends Component {
           <div
             id="myGrid"
             style={{
-              height: '520px',
+              height: '565px',
               width: '100%',
             }}
             className="ag-theme-alpine"

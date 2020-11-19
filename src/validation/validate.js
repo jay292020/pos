@@ -65,6 +65,38 @@ export let isRequiredQty =  (params) => {
         return {borderColor: 'red'};
       }
 }
+export let isRequiredName =  (params) => {
+  let isRequiredString = params.data.CUSTOMER_NAME !== undefined && params.data.CUSTOMER_NAME.toString()
+  let isRequiredValue = isRequiredString.length > 0
+    if (isRequiredValue) {
+        //mark police cells as red
+        return {borderColor: 'transparent'};
+    } else {
+      return {borderColor: 'red'};
+    }
+}
+
+export let isRequiredShipCity =  (params) => {
+  let isRequiredString = params.data.SHIP_TO_CITY !== undefined && params.data.SHIP_TO_CITY.toString()
+  let isRequiredValue = isRequiredString.length > 0
+    if (isRequiredValue) {
+        //mark police cells as red
+        return {borderColor: 'transparent'};
+    } else {
+      return {borderColor: 'red'};
+    }
+}
+export let isRequiredSoldCity =  (params) => {
+  console.log(params.data.SOLD_TO_CITY)
+  let isRequiredString = params.data.SOLD_TO_CITY !== undefined && params.data.SOLD_TO_CITY !== null && params.data.SOLD_TO_CITY.toString();
+  let isRequiredValue = isRequiredString.length > 0
+    if (isRequiredValue) {
+        //mark police cells as red
+        return {borderColor: 'transparent'};
+    } else {
+      return {borderColor: 'red'};
+    }
+}
 export let zipValidate = (params) => {
     let isLength = params.value !== null && params.value.length > 10
     if (isLength) {
@@ -89,7 +121,10 @@ export let enabledLogic = (params) =>{
     let qty = params.QUANTITY !== undefined ? params.QUANTITY.toString() : 0
     let cost = params.UNIT_COST !== undefined ? params.UNIT_COST.toString() : 0
     let price = params.UNIT_PRICE !== undefined ? params.UNIT_PRICE.toString() : 0
-    return isTrue(itemNumber) && isTrue(description) && isTrue(qty) && isTrue(cost) && isTrue(price) && isTrue(itemMfg)
+    let name = params.CUSTOMER_NAME !== undefined && params.CUSTOMER_NAME !== null ? params.CUSTOMER_NAME.toString() : 0
+    let shipCity = params.SHIP_TO_CITY !== undefined && params.SHIP_TO_CITY !== null ? params.SHIP_TO_CITY.toString() : 0
+    let soldCity = params.SOLD_TO_CITY !== undefined && params.SOLD_TO_CITY !== null ? params.SOLD_TO_CITY.toString() : 0
+    return isTrue(itemNumber) && isTrue(description) && isTrue(qty) && isTrue(cost) && isTrue(price) && isTrue(itemMfg) && isTrue(name) && isTrue(shipCity) && isTrue(soldCity)
 }
 
 export let buttonHide = (row) =>{

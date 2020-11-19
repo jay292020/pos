@@ -246,6 +246,8 @@ textarea.ant-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       background-color: #a9a9a9!important;
       color: black!important;
       border: none!important;
+      text-shadow: unset;
+      font-weight: 300;
     }
   }
 }
@@ -259,6 +261,8 @@ textarea.ant-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     background-color: #a9a9a9!important;
     color: black!important;
     border: none!important;
+    text-shadow: unset;
+    font-weight: 300;
   }
   .ant-btn-primary{
     background-color: $apg-green;

@@ -95,8 +95,8 @@
   color: rgba(0, 0, 0, 0.85)!important;
   font-weight: 500;
 }
-.ag-header-cell-resize{
-  display: none!important
+.ag-header-cell-resize::after{
+  background-color: transparent!important;
 }
 .ag-cell{
   font-weight: 400!important;

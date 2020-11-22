@@ -313,8 +313,7 @@ class App extends Component {
       updateData(res);
     }).catch(error => {
       let errorMessage = error.response.data
-      console.log(errorMessage)
-      return ErrorAlertPopup('Error Date','Error Message(s)',errorMessage.errorMsg,errorMessage.errorMsg,'Close error message')
+      ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
   };
   onCellValueChanged = (event) => {

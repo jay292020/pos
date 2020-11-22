@@ -311,8 +311,10 @@ class App extends Component {
     };
     getPointOfSaleErrors().then(res => {
       updateData(res);
-    }).catch(errorMessage => {
-      console.log('===========>',errorMessage)
+    }).catch(error => {
+      let errorMessage = error.response.data
+      console.log(errorMessage)
+      return ErrorAlertPopup('Error Date','Error Message(s)',errorMessage.errorMsg,errorMessage.errorMsg,'Close error message')
     })
   };
   onCellValueChanged = (event) => {

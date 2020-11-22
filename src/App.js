@@ -27,6 +27,7 @@ import {
 } from './validation/validate'
 import NumericEditor from './validation/numericEditor.jsx';
 import CharEditor from './validation/charEditor.jsx';
+import LengthValidate from './validation/lengthValidate.jsx';
 let currentDate = moment().format('DD-MMM-YY H:mm:ss');
 class App extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class App extends Component {
           children: [
             { headerName: 'City', field: 'SOLD_TO_CITY',width: 100, cellStyle:isRequiredSoldCity, valueFormatter: upperCase },
             { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
-            { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate},
+            { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'lengthValidate',},
             { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
           ]
         },
@@ -84,7 +85,7 @@ class App extends Component {
           children: [
             { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,cellStyle:isRequiredShipCity,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
-            { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100, cellStyle:zipValidate},
+            { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100, cellStyle:zipValidate, cellEditor: 'lengthValidate',},
             { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
         ]
         },
@@ -200,7 +201,8 @@ class App extends Component {
       },
       frameworkComponents: {
         numericEditor: NumericEditor,
-        charEditor: CharEditor
+        charEditor: CharEditor,
+        lengthValidate: LengthValidate
       },
       defaultColDef: {
         width: 150,

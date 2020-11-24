@@ -44,6 +44,7 @@ class App extends Component {
               width: 100,
               pinned: 'left',
               type: [ 'nonEditableColumn'],
+              enableCellTextSelection:true
             },
             {
               headerName: 'Invoice',
@@ -51,6 +52,7 @@ class App extends Component {
               width: 100,
               pinned: 'left',
               type: [ 'nonEditableColumn'],
+              enableCellTextSelection:true
             },
             {
               headerName: 'Customer',
@@ -348,6 +350,7 @@ class App extends Component {
               singleClickEdit={true}
               rowClassRules={this.state.rowClassRules}
               onGridReady={this.onGridReady}
+              enableCellTextSelection= 'true'
               onCellValueChanged={this.onCellValueChanged.bind(this)}
               frameworkComponents={this.state.frameworkComponents}
               overlayNoRowsTemplate={"There are no POS records to correct at this time."}

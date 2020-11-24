@@ -59,6 +59,9 @@
 }
 .logo-title{
   padding: 15px;
+  .title-header{
+    color: $ag-header-font-clr!important;
+  }
 }
 .ag-theme-alpine .ag-row:not(.ag-row-first) {
   border-top-style: solid;
@@ -87,19 +90,20 @@
 .ag-theme-alpine .ag-pinned-right-header{
   border-left-color: transparent!important;
 }
-.ag-header-cell-text{
-  color: rgba(0, 0, 0, 0.85)!important;
-  font-weight: 700;
+.ag-header-cell-text, .ag-header-group-text{
+  color:$ag-header-font-clr !important;
+  font-weight: $ag-header-font-weight;
+  font-size: $ag-header-font!important;
 }
-.ag-header-group-text{
-  color: rgba(0, 0, 0, 0.85)!important;
-  font-weight: 500;
-}
+
 .ag-header-cell-resize::after{
   background-color: transparent!important;
 }
 .ag-cell{
   font-weight: 400!important;
+}
+.ag-theme-alpine .ag-header{
+  background-color: $ag-header-bg!important;
 }
 // .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-cell, .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-group-cell.ag-header-group-cell-with-group{
 //   border-top-color:unset !important

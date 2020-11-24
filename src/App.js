@@ -328,7 +328,7 @@ class App extends Component {
     return (
       <div style={{ width: '100%', height: '100%' }}>
         <div className="logo-title">
-            <h2>Bosch POS Corrections</h2>
+            <h2 className="title-header" >Bosch POS Corrections</h2>
         </div>
         <div style={{ height: '100%', boxSizing: 'border-box' }}>
           <div

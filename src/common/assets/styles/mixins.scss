@@ -1,5 +1,7 @@
 // Colors
 $white: #fff;
+$ag-header-bg: #f5f7f7;
+$ag-header-font-clr: rgba(0,0,0,.54);
 
 $text: #74708d;
 $text-lighten: #c0bdd0;
@@ -81,3 +83,9 @@ $sm-min-width: 768px;
 $sm-max-width: 767px;
 $xs-min-width: 576px;
 $xs-max-width: 575px;
+
+// fonts for AG_grid
+$ag-header-font: 12px;
+
+// font-weight
+$ag-header-font-weight: 600;

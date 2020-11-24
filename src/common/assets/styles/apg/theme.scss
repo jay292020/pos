@@ -84,3 +84,68 @@ body .ant-layout-footer {
   padding-top: 30px;
   padding-bottom: 15px;
 }
+.ag-theme-alpine .ag-cell{
+  font-size: 12px;
+}
+.ag-header-cell-text, .ag-header-group-text{
+  color:$ag-header-font-clr !important;
+  font-weight: $ag-header-font-weight;
+  font-size: $ag-header-font!important;
+}
+.ag-theme-alpine .ag-row:not(.ag-row-first) {
+  border-top-style: solid;
+}
+// .ag-theme-alpine .ag-pinned-left-header{
+//   border-right-color: #babfc7;
+// }
+// .ag-theme-alpine .ag-floating-top{
+//   border-bottom-color:red!important
+// }
+// .button-disable{
+//   button{
+//     opacity: 0.2;
+//     display: none
+//   }
+// }
+.ag-theme-alpine .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right):not(.ag-cell-range-single-cell){
+  border-right-color: transparent!important;
+}
+.ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell){
+  border-left-color: transparent!important;
+}
+.ag-theme-alpine .ag-pinned-left-header{
+  border-right-color: transparent!important;
+}
+.ag-theme-alpine .ag-pinned-right-header{
+  border-left-color: transparent!important;
+}
+
+
+.ag-header-cell-resize::after{
+  background-color: transparent!important;
+}
+.ag-cell{
+  font-weight: 400!important;
+}
+.ag-theme-alpine .ag-header{
+  background-color: $ag-header-bg!important;
+}
+// .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-cell, .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-group-cell.ag-header-group-cell-with-group{
+//   border-top-color:unset !important
+// }
+.ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after, .ag-theme-alpine .ag-rtl .ag-pinned-left-header .ag-header-row:before{
+  background-color:unset!important
+}
+.ag-theme-alpine .ag-ltr .ag-cell{
+  border-right-width: 1px;
+  border-color: transparent;
+  
+  .ag-has-focus{
+    border: unset!important;
+    border-color: unset!important;
+    outline: none!important;
+  }
+}
+.ag-theme-alpine .ag-ltr .ag-cell-focus{
+  border: none!important;
+}

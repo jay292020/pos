@@ -166,7 +166,7 @@ class App extends Component {
           headerName: null,
           sortable: false,
           filter: false,
-          width: 120,
+        
           pinned: 'right',
           type: ['nonEditableColumn'],
           cellRendererFramework: row => {
@@ -182,7 +182,7 @@ class App extends Component {
           headerName: null,
           sortable: false,
           filter: false,
-          width: 120,
+         
           pinned: 'right',
           type: ['dateColumn', 'nonEditableColumn'],
           cellRendererFramework: row => {
@@ -319,7 +319,7 @@ class App extends Component {
     getPointOfSaleErrors().then(res => {
       updateData(res);
     }).catch(error => {
-      let errorMessage = error.response.data
+      let errorMessage = error.response.data !== undefined && error.response.data
       ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
   };

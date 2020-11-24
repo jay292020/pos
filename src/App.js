@@ -28,6 +28,7 @@ import {
 import NumericEditor from './validation/numericEditor.jsx';
 import CharEditor from './validation/charEditor.jsx';
 import LengthValidate from './validation/lengthValidate.jsx';
+import CountryValidate from './validation/countryValidate.jsx';
 let currentDate = moment().format('DD-MMM-YY H:mm:ss');
 class App extends Component {
   constructor(props) {
@@ -39,14 +40,6 @@ class App extends Component {
           headerName: '*Click on a value to edit it',
           children: [
             {
-              headerName: 'Seq',
-              field: 'DOCUMENT_LINE_ITEM',
-              width: 100,
-              pinned: 'left',
-              type: [ 'nonEditableColumn'],
-              enableCellTextSelection:true
-            },
-            {
               headerName: 'Invoice',
               field: 'DOCUMENT_NUMBER',
               width: 100,
@@ -54,6 +47,15 @@ class App extends Component {
               type: [ 'nonEditableColumn'],
               enableCellTextSelection:true
             },
+            {
+              headerName: 'Seq',
+              field: 'DOCUMENT_LINE_ITEM',
+              width: 100,
+              pinned: 'left',
+              type: [ 'nonEditableColumn'],
+              enableCellTextSelection:true
+            },
+            
             {
               headerName: 'Customer',
               field: 'CUSTOMER_IDENTIFIER',
@@ -84,7 +86,7 @@ class App extends Component {
             { headerName: 'City', field: 'SOLD_TO_CITY',width: 100, cellStyle:isRequiredSoldCity, valueFormatter: upperCase },
             { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'lengthValidate',},
-            { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase,cellEditor: 'countryValidate' }
           ]
         },
         {
@@ -93,7 +95,7 @@ class App extends Component {
             { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,cellStyle:isRequiredShipCity,  valueFormatter: upperCase },
             { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
             { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100, cellStyle:zipValidate, cellEditor: 'lengthValidate',},
-            { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase }
+            { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase,cellEditor: 'countryValidate' }
         ]
         },
         {
@@ -209,7 +211,8 @@ class App extends Component {
       frameworkComponents: {
         numericEditor: NumericEditor,
         charEditor: CharEditor,
-        lengthValidate: LengthValidate
+        lengthValidate: LengthValidate,
+        countryValidate:CountryValidate
       },
       defaultColDef: {
         width: 150,
@@ -319,7 +322,7 @@ class App extends Component {
     getPointOfSaleErrors().then(res => {
       updateData(res);
     }).catch(error => {
-      let errorMessage = error.response.data !== undefined && error.response.data
+      let errorMessage = error.response !== undefined && error.response.data
       ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
   };

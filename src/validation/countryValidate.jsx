@@ -6,7 +6,7 @@ const KEY_F2 = 113;
 const KEY_ENTER = 13;
 const KEY_TAB = 9;
 
-export default class NumericEditor extends Component {
+export default class CountryValidate extends Component {
   constructor(props) {
     super(props);
 
@@ -108,10 +108,7 @@ export default class NumericEditor extends Component {
 
   handleChange(event) {
     let lengthOfTheValue = event.target.value.length
-    var string = event.target.value;
-    var dotCount = (string.match(/\./g) ||  []).length;
-
-    if(dotCount <= 1 && lengthOfTheValue <= 10){
+    if(lengthOfTheValue <= 2){
         this.setState({ value: event.target.value });
     }
   }
@@ -121,16 +118,16 @@ export default class NumericEditor extends Component {
     return typeof event.which === 'undefined' ? event.keyCode : event.which;
   }
 
-  isCharNumeric(charStr) {
-    return !!/\d/.test(charStr);
+  isChar(charStr) {
+    return /^[a-zA-Z]+$/.test(charStr);
   }
   isCharDecimal(charStr) {
-    return !!/\./.test(charStr).length < 2;
+    return !!/\./.test(charStr);
   }
   isKeyPressedNumeric(event) {
     const charCode = this.getCharCodeFromEvent(event);
     const charStr = event.key ? event.key : String.fromCharCode(charCode);
-    return this.isCharNumeric(charStr) ||  this.isCharDecimal(charStr);
+    return this.isChar(charStr)
   }
 
   render() {

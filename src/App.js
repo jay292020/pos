@@ -36,25 +36,30 @@ class App extends Component {
     this.state = {
       columnDefs: [
         {
-          headerName: 'Invoice',
-          field: 'DOCUMENT_NUMBER',
-          width: 100,
-          pinned: 'left',
-          type: [ 'nonEditableColumn'],
-        },
-        {
-          headerName: 'Seq',
-          field: 'DOCUMENT_LINE_ITEM',
-          width: 100,
-          pinned: 'left',
-          type: [ 'nonEditableColumn'],
-        },
-        {
-          headerName: 'Customer',
-          field: 'CUSTOMER_IDENTIFIER',
-          width: 150,
-          pinned: 'left',
-          type: ['nonEditableColumn'],
+          headerName: '*Click on a value to edit it',
+          children: [
+            {
+              headerName: 'Seq',
+              field: 'DOCUMENT_LINE_ITEM',
+              width: 100,
+              pinned: 'left',
+              type: [ 'nonEditableColumn'],
+            },
+            {
+              headerName: 'Invoice',
+              field: 'DOCUMENT_NUMBER',
+              width: 100,
+              pinned: 'left',
+              type: [ 'nonEditableColumn'],
+            },
+            {
+              headerName: 'Customer',
+              field: 'CUSTOMER_IDENTIFIER',
+              width: 150,
+              pinned: 'left',
+              type: ['nonEditableColumn'],
+            },
+          ]
         },
         {
           headerName: 'Name',
@@ -323,13 +328,13 @@ class App extends Component {
     return (
       <div style={{ width: '100%', height: '100%' }}>
         <div className="logo-title">
-            <h4>Bosch POS Corrections</h4>
+            <h2>Bosch POS Corrections</h2>
         </div>
         <div style={{ height: '100%', boxSizing: 'border-box' }}>
           <div
             id="myGrid"
             style={{
-              height: '565px',
+              height: '550px',
               width: '100%',
             }}
             className="ag-theme-alpine"

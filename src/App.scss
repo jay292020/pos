@@ -89,7 +89,7 @@
 }
 .ag-header-cell-text{
   color: rgba(0, 0, 0, 0.85)!important;
-  font-weight: 500;
+  font-weight: 700;
 }
 .ag-header-group-text{
   color: rgba(0, 0, 0, 0.85)!important;
@@ -100,4 +100,10 @@
 }
 .ag-cell{
   font-weight: 400!important;
+}
+// .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-cell, .ag-theme-alpine .ag-header-row:not(:first-child) .ag-header-group-cell.ag-header-group-cell-with-group{
+//   border-top-color:unset !important
+// }
+.ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after, .ag-theme-alpine .ag-rtl .ag-pinned-left-header .ag-header-row:before{
+  background-color:unset!important
 }

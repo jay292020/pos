@@ -316,11 +316,9 @@ class App extends Component {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    const updateData = (data) => {
-      this.setState({ rowData: data });
-    };
     getPointOfSaleErrors().then(res => {
-      updateData(res);
+      this.setState({ rowData: res });
+      // updateData(res);
     }).catch(error => {
       let errorMessage = error.response !== undefined && error.response.data
       ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)

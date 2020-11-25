@@ -149,3 +149,8 @@ body .ant-layout-footer {
 .ag-theme-alpine .ag-ltr .ag-cell-focus{
   border: none!important;
 }
+.ant-modal-confirm-body{
+  overflow: scroll;
+    height: 400px;
+    overflow-x: auto;
+}

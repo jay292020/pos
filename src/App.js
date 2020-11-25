@@ -84,7 +84,7 @@ class App extends Component {
           headerName: 'Sold-to Address',
           children: [
             { headerName: 'City', field: 'SOLD_TO_CITY',width: 100, cellStyle:isRequiredSoldCity, valueFormatter: upperCase },
-            { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase},
+            { headerName: 'State', field: 'SOLD_TO_STATE',width: 100,  valueFormatter: upperCase,cellEditor: 'countryValidate'},
             { headerName: 'Zip', field: 'SOLD_TO_ZIP',width: 100, cellStyle:zipValidate,cellEditor: 'lengthValidate',},
             { headerName: 'Country', field: 'SOLD_TO_COUNTRY',width: 120,  valueFormatter: upperCase,cellEditor: 'countryValidate' }
           ]
@@ -93,7 +93,7 @@ class App extends Component {
           headerName: 'Ship-to Address',
           children: [
             { headerName: 'City', field: 'SHIP_TO_CITY',width: 100,cellStyle:isRequiredShipCity,  valueFormatter: upperCase },
-            { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase},
+            { headerName: 'State', field: 'SHIP_TO_STATE',width: 100,   valueFormatter: upperCase,cellEditor: 'countryValidate'},
             { headerName: 'Zip', field: 'SHIP_TO_ZIP',width: 100, cellStyle:zipValidate, cellEditor: 'lengthValidate',},
             { headerName: 'Country', field: 'SHIP_TO_COUNTRY',width: 120,  valueFormatter: upperCase,cellEditor: 'countryValidate' }
         ]
@@ -318,9 +318,8 @@ class App extends Component {
 
     getPointOfSaleErrors().then(res => {
       this.setState({ rowData: res });
-      // updateData(res);
     }).catch(error => {
-      let errorMessage = error.response !== undefined && error.response.data
+      let errorMessage = error.response !== undefined && error.response !== null && error.response.data
       ErrorMessage(errorMessage.errorLocation,errorMessage.errorMsg, errorMessage.sourceName)
     })
   };

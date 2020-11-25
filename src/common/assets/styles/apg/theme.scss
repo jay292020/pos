@@ -150,7 +150,7 @@ body .ant-layout-footer {
   border: none!important;
 }
 .ant-modal-confirm-body{
-  overflow: scroll;
-    height: 400px;
-    overflow-x: auto;
+  overflow-y: auto;
+  height: 400px;
+  overflow-x: hidden;
 }

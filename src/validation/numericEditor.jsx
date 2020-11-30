@@ -125,12 +125,16 @@ export default class NumericEditor extends Component {
     return !!/\d/.test(charStr);
   }
   isCharDecimal(charStr) {
-    return !!/\./.test(charStr).length < 2;
+    var regExp ="^\\d+(\\.\\d+)?$";
+    return charStr
+    // return charStr.match(/^\d+(\.\d+)?$/);
   }
   isKeyPressedNumeric(event) {
+    console.log(event)
     const charCode = this.getCharCodeFromEvent(event);
+    const charAllowed = [".","Backspace"];
     const charStr = event.key ? event.key : String.fromCharCode(charCode);
-    return this.isCharNumeric(charStr) ||  this.isCharDecimal(charStr);
+    return this.isCharNumeric(charStr) || charAllowed.includes(charStr);
   }
 
   render() {
